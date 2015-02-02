@@ -1,0 +1,22 @@
+AddDefaultCharset UTF-8
+SetOutputFilter DEFLATE
+
+###################################################
+<IfModule mod_rewrite.c>
+
+RewriteEngine On
+
+# Set WoprPress folder to use
+RewriteRule ^ - [E=WP_FOLDER:wordpress]
+
+# Redirect requests to WordPres or other files/folders
+RewriteCond %{REQUEST_URI}::$1 ^(.*?/)(.*)::\2$
+RewriteRule ^(.*)$ - [E=BASE:%1]
+RewriteRule ^$ %{ENV:BASE}/%{ENV:WP_FOLDER}/ [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ %{ENV:BASE}/%{ENV:WP_FOLDER}/$1 [L]
+
+</IfModule>
+###################################################
+
