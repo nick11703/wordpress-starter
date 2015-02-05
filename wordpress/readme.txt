@@ -1,1 +1,0 @@
-Paste your favorite version of WordPress into this folder.
